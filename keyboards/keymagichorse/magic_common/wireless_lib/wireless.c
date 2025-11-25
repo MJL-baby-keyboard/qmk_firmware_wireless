@@ -33,6 +33,9 @@ void wireless_init(void)
 #if defined(WIRELESS_BATTERY_ENABLE)
     battery_init();
 #endif
+#if defined(WIRELESS_LPM_ENABLE)
+    lpm_init();
+#endif
 }
 void wireless_task(void)
 {
@@ -46,7 +49,9 @@ void wireless_task(void)
     battery_task();
 #endif
     // 低功耗
-
+#if defined(WIRELESS_LPM_ENABLE)
+    lpm_task();
+#endif
     /* usb_remote_wakeup() should be invoked last so that we have chance
      * to switch to wireless after start-up when usb is not connected
      */
